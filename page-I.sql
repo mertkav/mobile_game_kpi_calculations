@@ -1,5 +1,5 @@
--- Calculates ad revenue for different platforms, countries, and ad types.
--- The revenue is segmented by days after installation (D0, D1, D3, D7, D14, D28).
+-- ad revenue for different platforms, countries, and ad types.
+-- segmented by days after installation (D0, D1, D3, D7, D14, D28).
 
 WITH revenue_by_days AS (
     SELECT 
@@ -9,7 +9,7 @@ WITH revenue_by_days AS (
         ad_revenue,
         event_date,
         installed_datetime,
-        -- Calculate days after install based on event date and installation date
+       
         TIMESTAMP_DIFF(TIMESTAMP(event_date), TIMESTAMP(installed_datetime), DAY) AS days_after_install
     FROM 
         `analytics_v2.clustered_events`
@@ -20,7 +20,7 @@ WITH revenue_by_days AS (
         AND ad_type IS NOT NULL
 )
 
--- Calculate ad revenue for each day window (D0, D1, D3, D7, D14, D28) and total revenue
+-- Calculate ad revenue for each day window  and total revenue
 SELECT 
     platform, 
     country, 
